@@ -9,13 +9,14 @@ import (
 )
 
 func main() {
-	r := gin.Default()
-
+	r := gin.New()
+	//routes.UserRoute(r)
+	r.Run("localhost:8081")
 	models.ConnectDatabase() // new
 
-	r.GET("/hdata", controllers.GetAllData)
+	r.GET("/api/weather_data", controllers.GetAllData)
+	r.POST("/api/weather_data", controllers.CreateData)
 
-	r.Run("localhost:8081")
 	err := r.Run()
 	if err != nil {
 		return
