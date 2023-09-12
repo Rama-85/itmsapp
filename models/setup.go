@@ -1,18 +1,21 @@
 package models
 
 import (
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"gorm.io/driver/mysql"
+	_ "gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 var DB *gorm.DB
 
 func ConnectDatabase() {
-	db, err := gorm.Open("mysql", "root:root@tcp(127.0.0.1:3306)/itms")
+	//var hourly Hourly
+	db, err := gorm.Open(mysql.Open("root:root@tcp(127.0.0.1:3306)/itms"), &gorm.Config{})
 	if err != nil {
 		panic("Failed to connect database")
 	}
 	db.AutoMigrate(&Hourly{})
 
 	DB = db
+
 }
